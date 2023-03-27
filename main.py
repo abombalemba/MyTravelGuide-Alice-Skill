@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template
 from json import dumps
 from random import choice
-from pprint import pprint
 from database import *
 
 
@@ -16,10 +15,10 @@ def main():
 
 @app.route('/post', methods=['POST'])
 def post():
-    return dumps(handle_dialog(request.json, {}))
+    return dumps(handler(request.json))
 
 
-def handle_dialog(req, res):
+def handler(req):
     global session_storage
     user_id = req['session']['user_id']
 
