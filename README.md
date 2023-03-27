@@ -12,5 +12,5 @@
 <h2>Инструкция</h2>
 https://abombalemba.pythonanywhere.com/
 
-<h2>Навык Алисы</h2>
+<h2>Навык Алисы (с помощью API)</h2>
 https://abombalemba.pythonanywhere.com/post
