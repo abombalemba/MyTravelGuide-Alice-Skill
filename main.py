@@ -83,11 +83,12 @@ def handler(req):
             session_storage[user_id]['location'] = '4'
             country = req['request']['original_utterance'].lower().title()
             session_storage[user_id]['country'] = country
-            text = choice(alice_phrase3).format(countries[session_storage[user_id]['country']][0])
+            text = choice(alice_phrase3).format(countries[session_storage[user_id]['country']][0][1])
 
             response['response']['text'] = text
             response['response']['tts'] = text
             response['response']['buttons'] = get_suggests('yes/no')
+            response['response']['card'] = get_card(session_storage[user_id]['country'], text, 0)
 
         else:
             text = choice(alice_phrase_dop2)
@@ -101,11 +102,12 @@ def handler(req):
 
         if req['request']['original_utterance'].lower() in user_access:
             session_storage[user_id]['location'] = '5'
-            text = choice(alice_phrase4).format(countries[session_storage[user_id]['country']][1])
+            text = choice(alice_phrase4).format(countries[session_storage[user_id]['country']][1][1])
 
             response['response']['text'] = text
             response['response']['tts'] = text
             response['response']['buttons'] = get_suggests('yes/no')
+            response['response']['card'] = get_card(session_storage[user_id]['country'], text, 1)
 
         else:
             text = choice(alice_phrase_dop3)
@@ -120,11 +122,12 @@ def handler(req):
 
         if req['request']['original_utterance'].lower() in user_access:
             session_storage[user_id]['location'] = '6'
-            text = choice(alice_phrase5).format(countries[session_storage[user_id]['country']][2])
+            text = choice(alice_phrase5).format(countries[session_storage[user_id]['country']][2][1])
 
             response['response']['text'] = text
             response['response']['tts'] = text
             response['response']['buttons'] = get_suggests('yes/no')
+            response['response']['card'] = get_card(session_storage[user_id]['country'], text, 2)
 
         else:
             text = choice(alice_phrase_dop3)
@@ -172,6 +175,15 @@ def get_suggests(what):
         suggests = []
 
     return suggests
+
+
+def get_card(country, text, num):
+    return {
+        'type': 'BigImage',
+        'image_id': countries[country][num][2],
+        'title': countries[country][num][0],
+        'description': text
+    }
 
 
 if __name__ == '__main__':
