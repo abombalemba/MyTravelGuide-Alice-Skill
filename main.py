@@ -34,7 +34,6 @@ def handler(req):
         print(1, req['request']['original_utterance'])
 
         session_storage[user_id] = {
-            'suggests': [],
             'location': '2',
             'country': ''
         }
@@ -157,8 +156,8 @@ def handler(req):
             response['response']['end_session'] = 'true'
 
     else:
-        response['response']['text'] = 'ошибка блин text'
-        response['response']['tts'] = 'ошибка блин tts'
+        response['response']['text'] = text_error
+        response['response']['tts'] = text_error
         response['response']['end_session'] = 'true'
 
     return response
@@ -166,7 +165,7 @@ def handler(req):
 
 def get_suggests(what):
     if what == 'yes/no':
-        suggests = list({'title': button, 'hide': True} for button in ['да', 'нет'])
+        suggests = list({'title': button, 'hide': True} for button in user_yes_no)
     elif what == 'countries':
         suggests = list({'title': button, 'hide': True} for button in countries.keys())
     elif what == 'ready':
